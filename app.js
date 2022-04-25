@@ -51,6 +51,25 @@ app.post('/posts', async(req, res) => {
   }
 })
 
+app.get("/editPost/:id", async (req, res) => {
+  try {
+    let post = await PostModel.findById(req.params.id);
+    console.log(post);
+    res.render('editPost', {post});
+  }catch(e) {
+    console.error(e)
+  }
+})
+
+app.post("/editPost", async (req, res) => {
+  try {
+    await PostModel.findByIdAndUpdate(req.query.id, req.body);
+    res.redirect("/");
+  }catch(e) {
+    console.error(e);
+  }
+})
+
 app.use((req, res) => {
   res.status(404).render("404");
 })
