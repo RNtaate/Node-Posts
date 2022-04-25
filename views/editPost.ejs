@@ -1,0 +1,5 @@
+<h3>Edit Post</h3>
+<form action="/editPost/?id=<%=post._id%>" method="POST">
+  <textarea name="postbody" id="" cols="30" rows="4" placeholder="What is on your mind?"><%= post.postbody %></textarea>
+  <button type="submit">Post</button>
+</form>
