@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const path = require('path');
 const methodoverride = require('method-override');
 const mongoose = require('mongoose');
+const expressLayout = require("express-layout");
 
 const dbConfig = require('./config/database-config');
 const PostModel = require('./models/PostModel');
@@ -25,10 +26,12 @@ db.on('error', (err) => {
 
 app.set("view engine", 'ejs');
 app.set('views', path.join(__dirname, '/views'));
+app.set("layouts", path.join(__dirname, "/views/layouts"));
 
 app.use(express.urlencoded({extended: true}))
 app.use(morgan('dev'));
 app.use(methodoverride('_method'));
+app.use(expressLayout());
 
 
 app.use("/", postRoutes);

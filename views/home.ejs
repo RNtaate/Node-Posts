@@ -1,28 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Norp Posts</title>
-</head>
-<body>
-  <h1>Posts</h1>
-  <form action="/posts" method="POST">
-    <textarea name="postbody" id="" cols="30" rows="4" placeholder="What is on your mind?"></textarea>
-    <button type="submit">Post</button>
-  </form>
-  <% posts.forEach( post => { %>
-    <a href="/posts/<%=post._id%>">
-      <div>
-        <p><%= post.postbody %></p>
-        <a href="/editPost/<%= post._id %>" ><button type="button">Edit Post</button></a>
-        <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" style="display: inline">
-          <button type="submit">Delete</button>
-        </form>
-      </div>
-    </a>
-    <hr>
-  <% }) %>
-</body>
-</html>
+
+<h1>Posts</h1>
+<form action="/posts" method="POST">
+<textarea name="postbody" id="" cols="30" rows="4" placeholder="What is on your mind?"></textarea>
+<button type="submit">Post</button>
+</form>
+<% posts.forEach( post => { %>
+<a href="/posts/<%=post._id%>">
+  <div>
+    <p><%= post.postbody %></p>
+    <a href="/editPost/<%= post._id %>" ><button type="button">Edit Post</button></a>
+    <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" style="display: inline">
+      <button type="submit">Delete</button>
+    </form>
+  </div>
+</a>
+<hr>
+<% }) %>
