@@ -1,7 +1,7 @@
 <main class="d-flex flex-column align-items-center">
   <%- include("./partials/navbar.js") %>
   <form action="/posts" method="POST" class="w-50 mb-5">
-  <textarea name="postbody" id="" cols="30" rows="4" placeholder="What is on your mind?" class="form-control mb-2"></textarea>
+  <textarea name="postbody" id="" cols="30" rows="1" placeholder="What is on your mind?" class="mb-2 w-100 border-bottom pb-2"></textarea>
   <button type="submit" class="btn btn-primary w-100">Post</button>
   </form>
   <% posts.forEach( post => { %>
