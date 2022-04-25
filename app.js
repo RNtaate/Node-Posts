@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
+const methodoverride = require('method-override');
 const mongoose = require('mongoose');
 
 const dbConfig = require('./config/database-config');
@@ -26,6 +27,7 @@ app.set('views', path.join(__dirname, '/views'));
 
 app.use(express.urlencoded({extended: true}))
 app.use(morgan('dev'));
+app.use(methodoverride('_method'));
 
 
 app.get('/', async (req, res) => {
