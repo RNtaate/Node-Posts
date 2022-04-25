@@ -30,6 +30,7 @@ app.set('views', path.join(__dirname, '/views'));
 app.set("layouts", path.join(__dirname, "/views/layouts"));
 
 app.use(express.urlencoded({extended: true}))
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(morgan('dev'));
 app.use(methodoverride('_method'));
 app.use(expressLayout());
