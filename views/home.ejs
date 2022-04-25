@@ -8,8 +8,13 @@
 </head>
 <body>
   <h1>Posts</h1>
+  <form action="/posts" method="POST">
+    <textarea name="postbody" id="" cols="30" rows="4" placeholder="What is on your mind?"></textarea>
+    <button type="submit">Post</button>
+  </form>
   <% posts.forEach( post => { %>
-    <p><%= post.body %></p>
+    <p><%= post.postbody %></p>
+    <hr>
   <% }) %>
 </body>
 </html>
