@@ -37,6 +37,10 @@ app.get('/', async (req, res) => {
   }
 })
 
+app.get("/home", (req, res) => {
+  res.redirect("/");
+})
+
 app.post('/posts', async(req, res) => {
   try{
     let newPost = new PostModel(req.body);
@@ -45,6 +49,10 @@ app.post('/posts', async(req, res) => {
   }catch(e) {
     console.error(e);
   }
+})
+
+app.use((req, res) => {
+  res.status(404).render("404");
 })
 
 app.listen(process.env.PORT);
