@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 
 const dbConfig = require('./config/database-config');
 const PostModel = require('./models/PostModel');
+const postRoutes = require('./routes/postRoutes');
 
 const app = express();
 
@@ -30,56 +31,7 @@ app.use(morgan('dev'));
 app.use(methodoverride('_method'));
 
 
-app.get('/', async (req, res) => {
-  try{
-    let posts = await PostModel.find().sort({createdAt: -1});
-    res.render('home', {posts});
-  }catch(e) {
-    console.error("Something is wrong", e);
-  }
-})
-
-app.get("/home", (req, res) => {
-  res.redirect("/");
-})
-
-app.post('/posts', async(req, res) => {
-  try{
-    let newPost = new PostModel(req.body);
-    await newPost.save();
-    res.redirect('/');
-  }catch(e) {
-    console.error(e);
-  }
-})
-
-app.get("/editPost/:id", async (req, res) => {
-  try {
-    let post = await PostModel.findById(req.params.id);
-    console.log(post);
-    res.render('editPost', {post});
-  }catch(e) {
-    console.error(e)
-  }
-})
-
-app.post("/editPost", async (req, res) => {
-  try {
-    await PostModel.findByIdAndUpdate(req.query.id, req.body);
-    res.redirect("/");
-  }catch(e) {
-    console.error(e);
-  }
-})
-
-app.delete("/posts/:id", async (req, res) => {
-  try {
-    await PostModel.findByIdAndDelete(req.params.id);
-    res.redirect("/");
-  }catch(e) {
-    console.error(e);
-  }
-})
+app.use("/", postRoutes);
 
 app.use((req, res) => {
   res.status(404).render("404");
