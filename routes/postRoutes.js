@@ -45,6 +45,15 @@ router.post("/editPost", async (req, res) => {
   }
 })
 
+router.get("/posts/:id", async (req, res) => {
+  try {
+    let singlePost = await PostModel.findById(req.params.id);
+    res.render("showPost", {post: singlePost});
+  }catch(e) {
+    console.error(e);
+  }
+})
+
 router.delete("/posts/:id", async (req, res) => {
   try {
     await PostModel.findByIdAndDelete(req.params.id);
