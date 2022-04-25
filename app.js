@@ -72,6 +72,15 @@ app.post("/editPost", async (req, res) => {
   }
 })
 
+app.delete("/posts/:id", async (req, res) => {
+  try {
+    await PostModel.findByIdAndDelete(req.params.id);
+    res.redirect("/");
+  }catch(e) {
+    console.error(e);
+  }
+})
+
 app.use((req, res) => {
   res.status(404).render("404");
 })

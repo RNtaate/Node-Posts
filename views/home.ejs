@@ -15,6 +15,9 @@
   <% posts.forEach( post => { %>
     <p><%= post.postbody %></p>
     <a href="/editPost/<%= post._id %>" ><button type="button">Edit Post</button></a>
+    <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" style="display: inline">
+      <button type="submit">Delete</button>
+    </form>
     <hr>
   <% }) %>
 </body>
