@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const PostModel = require('../models/PostModel');
+const Comment = require("../models/CommentModel");
 
 router.get('/', async (req, res) => {
   try{
@@ -48,7 +49,8 @@ router.post("/editPost", async (req, res) => {
 router.get("/posts/:id", async (req, res) => {
   try {
     let singlePost = await PostModel.findById(req.params.id);
-    res.render("showPost", {post: singlePost});
+    let comments = await Comment.find({post_foreign_id: req.params.id}).sort({createdAt: -1});
+    res.render("showPost", {post: singlePost, comments});
   }catch(e) {
     console.error(e);
   }

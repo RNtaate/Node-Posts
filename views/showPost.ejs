@@ -1,2 +1,10 @@
-<p><%= post.postbody %></p>
 <a href="/">Back</a>
+<p><%= post.postbody %></p>
+  <form action="/comments" method="POST">
+    <input type="text" value="<%= post._id%>" name="post_foreign_id" style="display: none"/>
+    <textarea name="commentbody" id="" cols="30" rows="4" placeholder="Leave a comment"></textarea>
+    <button type="submit">Comment</button>
+  </form>
+<% comments.forEach( comment => { %>
+  <p><%= comment.commentbody %></p>
+<% }) %>
