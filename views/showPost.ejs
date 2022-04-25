@@ -3,7 +3,7 @@
   <p class="w-50"><%= post.postbody %></p>
   <form action="/comments" method="POST" class="w-50 mb-5">
     <input type="text" value="<%= post._id%>" name="post_foreign_id" style="display: none"/>
-    <textarea name="commentbody" id="" cols="30" rows="1" placeholder="Leave a comment" class="w-100 border-bottom mb-3 pb-2"></textarea>
+    <textarea name="commentbody" id="" cols="30" rows="1" placeholder="Leave a comment" class="w-100 mb-3 pb-2"></textarea>
     <button type="submit" class="btn btn-primary w-100">Comment</button>
   </form>
   <% comments.forEach( comment => { %>

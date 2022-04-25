@@ -13,4 +13,9 @@ textarea {
   border: none;
   outline: none;
   resize: none;
+  border-bottom: 1px solid lightgray;
+}
+
+textarea:focus {
+  border-bottom: 1px solid black;
 }
