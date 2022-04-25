@@ -1,0 +1,19 @@
+
+<h1>Posts</h1>
+<form action="/posts" method="POST">
+<textarea name="postbody" id="" cols="30" rows="4" placeholder="What is on your mind?"></textarea>
+<button type="submit">Post</button>
+</form>
+<% posts.forEach( post => { %>
+<a href="/posts/<%=post._id%>">
+  <div>
+    <p><%= post.postbody %></p>
+    <a href="/editPost/<%= post._id %>" ><button type="button">Edit Post</button></a>
+    <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" style="display: inline">
+      <button type="submit">Delete</button>
+    </form>
+    <a href="/posts/<%=post._id%>"><button type="button">Comment</button></a>
+  </div>
+</a>
+<hr>
+<% }) %>
