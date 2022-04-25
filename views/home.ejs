@@ -7,6 +7,9 @@
   <title>Document</title>
 </head>
 <body>
-  <h1>Home Page</h1>
+  <h1>Posts</h1>
+  <% posts.forEach( post => { %>
+    <p><%= post.body %></p>
+  <% }) %>
 </body>
 </html>
