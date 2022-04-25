@@ -8,11 +8,11 @@
 <a href="/posts/<%=post._id%>">
   <div>
     <p><%= post.postbody %></p>
-    <a href="/editPost/<%= post._id %>" ><button type="button">Edit Post</button></a>
+    <a href="/editPost/<%= post._id %>" ><i class="fa-solid fa-pen"></i></a>
     <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" style="display: inline">
-      <button type="submit">Delete</button>
+      <button type="submit"><i class="fa-solid fa-trash"></i></button>
     </form>
-    <a href="/posts/<%=post._id%>"><button type="button">Comment</button></a>
+    <a href="/posts/<%=post._id%>"><i class="fa-solid fa-comment"></i></a>
   </div>
 </a>
 <hr>
