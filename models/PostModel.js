@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const postSchema = new Schema({
-  body: {
+  postbody: {
     type: String,
     required: true
   }
