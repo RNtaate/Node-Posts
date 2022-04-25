@@ -9,6 +9,7 @@ const expressLayout = require("express-layout");
 const dbConfig = require('./config/database-config');
 const PostModel = require('./models/PostModel');
 const postRoutes = require('./routes/postRoutes');
+const commentRoutes = require('./routes/commentRoutes');
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use(expressLayout());
 
 
 app.use("/", postRoutes);
+app.use("/", commentRoutes);
 
 app.use((req, res) => {
   res.status(404).render("404");
