@@ -13,17 +13,9 @@ const commentRoutes = require('./routes/commentRoutes');
 
 const app = express();
 
-mongoose.connect(dbConfig.database);
-
-const db = mongoose.connection;
-
-db.once('open', () => {
-  console.log("You have connected to mongoDB");
-})
-
-db.on('error', (err) => {
-  console.log("Connection Error: ", err);
-})
+mongoose.connect(dbConfig.database)
+.then(() => console.log('You have successfully connected to mongoDB'))
+.catch( err => console.error("CONNECTION FAILED: ", err));
 
 app.set("view engine", 'ejs');
 app.set('views', path.join(__dirname, '/views'));
