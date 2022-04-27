@@ -6,9 +6,9 @@ const postSchema = new Schema({
   postbody: {
     type: String,
     required: true
-  }
+  },
 }, {timestamps: true})
 
-const PostModel = mongoose.model("Post", postSchema);
+const Post = mongoose.model("Post", postSchema);
 
-module.exports = PostModel;
+module.exports = Post;

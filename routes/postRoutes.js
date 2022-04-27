@@ -1,12 +1,12 @@
 const express = require('express');
 
 const router = express.Router();
-const PostModel = require('../models/PostModel');
+const Post = require('../models/PostModel');
 const Comment = require("../models/CommentModel");
 
 router.get('/', async (req, res) => {
   try{
-    let posts = await PostModel.find().sort({createdAt: -1});
+    let posts = await Post.find().sort({createdAt: -1});
     res.render('home', {posts});
   }catch(e) {
     console.error("Something is wrong", e);
@@ -19,7 +19,7 @@ router.get("/home", (req, res) => {
 
 router.post('/posts', async(req, res) => {
   try{
-    let newPost = new PostModel(req.body);
+    let newPost = new Post(req.body);
     await newPost.save();
     res.redirect('/');
   }catch(e) {
@@ -29,7 +29,7 @@ router.post('/posts', async(req, res) => {
 
 router.get("/editPost/:id", async (req, res) => {
   try {
-    let post = await PostModel.findById(req.params.id);
+    let post = await Post.findById(req.params.id);
     console.log(post);
     res.render('editPost', {post});
   }catch(e) {
@@ -39,7 +39,7 @@ router.get("/editPost/:id", async (req, res) => {
 
 router.post("/editPost", async (req, res) => {
   try {
-    await PostModel.findByIdAndUpdate(req.query.id, req.body);
+    await Post.findByIdAndUpdate(req.query.id, req.body);
     res.redirect("/");
   }catch(e) {
     console.error(e);
@@ -48,9 +48,11 @@ router.post("/editPost", async (req, res) => {
 
 router.get("/posts/:id", async (req, res) => {
   try {
-    let singlePost = await PostModel.findById(req.params.id);
-    let comments = await Comment.find({post_foreign_id: req.params.id}).sort({createdAt: -1});
-    res.render("showPost", {post: singlePost, comments});
+    let singlePost = await Post.findById(req.params.id).populate('Comment');
+    // let comments = await Comment.find({post_foreign_id: req.params.id}).sort({createdAt: -1});
+    // res.render("showPost", {post: singlePost, comments});
+    console.log(singlePost);
+    res.redirect("/");
   }catch(e) {
     console.error(e);
   }
@@ -58,7 +60,7 @@ router.get("/posts/:id", async (req, res) => {
 
 router.delete("/posts/:id", async (req, res) => {
   try {
-    await PostModel.findByIdAndDelete(req.params.id);
+    await Post.findByIdAndDelete(req.params.id);
     res.redirect("/");
   }catch(e) {
     console.error(e);

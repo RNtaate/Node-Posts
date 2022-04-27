@@ -7,7 +7,6 @@ const mongoose = require('mongoose');
 const expressLayout = require("express-layout");
 
 const dbConfig = require('./config/database-config');
-const PostModel = require('./models/PostModel');
 const postRoutes = require('./routes/postRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 
