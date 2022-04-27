@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require("mongoose");
 
 const router = express.Router();
 const Post = require('../models/PostModel');
@@ -48,11 +49,26 @@ router.post("/editPost", async (req, res) => {
 
 router.get("/posts/:id", async (req, res) => {
   try {
-    let singlePost = await Post.findById(req.params.id).populate('Comment');
-    // let comments = await Comment.find({post_foreign_id: req.params.id}).sort({createdAt: -1});
-    // res.render("showPost", {post: singlePost, comments});
-    console.log(singlePost);
-    res.redirect("/");
+    let singlePost = await Post.aggregate([
+      {
+        $match: {
+          _id: mongoose.Types.ObjectId(req.params.id)
+        }
+      },
+      {
+        $lookup: {
+          from: "comments",
+          localField: "_id",
+          foreignField: "postId",
+          as: "comments"
+        }
+      }
+    ])
+    if(singlePost.length > 0) {
+      res.render("showPost", {post: singlePost[0]});
+    }else {
+      throw new Error();
+    }
   }catch(e) {
     console.error(e);
   }
