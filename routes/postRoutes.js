@@ -65,6 +65,7 @@ router.get("/posts/:id", async (req, res) => {
       }
     ])
     if(singlePost.length > 0) {
+      singlePost[0].comments = singlePost[0].comments.reverse();
       res.render("showPost", {post: singlePost[0]});
     }else {
       throw new Error();
