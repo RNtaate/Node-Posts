@@ -9,6 +9,7 @@ const expressLayout = require("express-layout");
 const dbConfig = require('./config/database-config');
 const postRoutes = require('./routes/postRoutes');
 const commentRoutes = require('./routes/commentRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 
@@ -26,7 +27,7 @@ app.use(morgan('dev'));
 app.use(methodoverride('_method'));
 app.use(expressLayout());
 
-
+app.use("/", authRoutes);
 app.use("/", postRoutes);
 app.use("/", commentRoutes);
 
