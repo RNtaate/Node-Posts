@@ -4,7 +4,10 @@
   <form action="/comments" method="POST" class="w-50 mb-4">
     <input type="text" value="<%= post._id%>" name="post_foreign_id" style="display: none"/>
     <textarea name="commentbody" id="" cols="30" rows="1" placeholder="Leave a comment" class="w-100 mb-3 pb-2"></textarea>
-    <button type="submit" class="btn btn-secondary w-100">Comment</button>
+    <div class="form-buttons-div d-flex">
+      <button type="submit" class="btn btn-secondary w-100">Comment</button>
+      <a class="btn btn-danger w-100" href="/">Cancel</a>
+    </div>
   </form>
   <div class="w-50 mb-2">
     <h6>Comments</h6>
