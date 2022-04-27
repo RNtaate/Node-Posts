@@ -7,29 +7,21 @@ const mongoose = require('mongoose');
 const expressLayout = require("express-layout");
 
 const dbConfig = require('./config/database-config');
-const PostModel = require('./models/PostModel');
 const postRoutes = require('./routes/postRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 
 const app = express();
 
-mongoose.connect(dbConfig.database);
-
-const db = mongoose.connection;
-
-db.once('open', () => {
-  console.log("You have connected to mongoDB");
-})
-
-db.on('error', (err) => {
-  console.log("Connection Error: ", err);
-})
+mongoose.connect(dbConfig.database)
+.then(() => console.log('You have successfully connected to mongoDB'))
+.catch( err => console.error("CONNECTION FAILED: ", err));
 
 app.set("view engine", 'ejs');
 app.set('views', path.join(__dirname, '/views'));
 app.set("layouts", path.join(__dirname, "/views/layouts"));
 
 app.use(express.urlencoded({extended: true}))
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(morgan('dev'));
 app.use(methodoverride('_method'));
 app.use(expressLayout());

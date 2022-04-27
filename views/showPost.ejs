@@ -1,10 +1,22 @@
-<a href="/">Back</a>
-<p><%= post.postbody %></p>
-  <form action="/comments" method="POST">
-    <input type="text" value="<%= post._id%>" name="post_foreign_id" style="display: none"/>
-    <textarea name="commentbody" id="" cols="30" rows="4" placeholder="Leave a comment"></textarea>
-    <button type="submit">Comment</button>
+<main class="d-flex flex-column align-items-center">
+  <%- include("./partials/navbar.js") %>
+  <p class="w-50"><%= post.postbody %></p>
+  <form action="/comments" method="POST" class="w-50 mb-4">
+    <input type="text" value="<%= post._id%>" name="postid" style="display: none"/>
+    <textarea name="commentbody" id="" cols="30" rows="1" placeholder="Leave a comment" class="w-100 mb-3 pb-2"></textarea>
+    <div class="form-buttons-div d-flex">
+      <button type="submit" class="btn btn-secondary w-100">Comment</button>
+      <a class="btn btn-danger w-100" href="/">Cancel</a>
+    </div>
   </form>
-<% comments.forEach( comment => { %>
-  <p><%= comment.commentbody %></p>
-<% }) %>
+  <div class="w-50 mb-2">
+    <h6>Comments</h6>
+  </div>
+  <% post.comments.forEach( comment => { %>
+    <div class="card mb-3 w-50 border-0">
+      <div class="card-body">     
+        <p class="card-text"><%= comment.commentbody %></p>
+      </div>
+    </div>
+  <% }) %>
+</main>
