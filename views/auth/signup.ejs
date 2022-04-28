@@ -1,1 +1,25 @@
-<h2>This is the signup page</h2>
+<main class="auth-main d-flex flex-column align-items-center justify-content-center">
+  <div class="already-div">
+    <small>Already have an account?</small>
+    <a href="/login" class="btn btn-sm ms-2">Login</a>
+  </div>
+  <div class="form-wrapper-div px-3 py-5">
+    <h4 class="mb-4">Sign Up</h4>
+    <form>
+      <div class="mb-4">
+        <input type="text" class="form-control" id="usernameId" name="username" placeholder="Username" autocomplete="off">
+      </div>
+      <div class="mb-4">
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" placeholder="Email Address" autocomplete="off">
+        <div id="emailHelp" class="form-text email-lower-div">We'll never share your email with anyone else.</div>
+      </div>
+      <div class="mb-4">
+        <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
+      </div>
+      <div class="mb-4">
+        <input type="password" class="form-control" id="exampleInputPassword1" name="passwordconfirmation" placeholder="Password Confirmation">
+      </div>
+      <button type="submit" class="btn w-100 auth-form-button">Create Account</button>
+    </form>
+  </div>
+</main>

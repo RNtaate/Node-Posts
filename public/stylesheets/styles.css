@@ -52,3 +52,41 @@ a {
   text-decoration: none;
   color: #333;
 }
+
+/*Authentication forms styling*/
+
+.auth-main {
+  background-color: #ECEEF1;
+  min-height: 100vh;
+  max-height: 100vh;
+  position: relative;
+}
+
+.form-wrapper-div {
+  width: 100%;
+  min-width: 320px;
+  max-width: 450px;
+  border: 1px solid lightgray;
+  background-color: white;
+}
+
+.form-wrapper-div > h4 {
+  color: #555;
+}
+
+.email-lower-div {
+  font-size: 12px;
+  color: #999;
+}
+
+.auth-form-button,
+.already-div > a {
+  background-color: #0877C5;
+  color: white;
+}
+
+.already-div {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
