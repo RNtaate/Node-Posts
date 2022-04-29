@@ -1,11 +1,23 @@
-<main class="auth-main d-flex flex-column align-items-center justify-content-center">
+<main class="auth-main d-flex flex-column align-items-center justify-content-center position-relative">
   <div class="already-div">
     <small>Already have an account?</small>
     <a href="/login" class="btn btn-sm ms-2">Login</a>
   </div>
+
+  <% if(messages.error) { %>
+    <div class="toast align-items-center text-white bg-danger border-0 position-absolute top-0 start-50 translate-middle-x mt-1" role="alert" id="toast-div" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          <strong>Error! </strong><%= messages.error %>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  <% } %>
+
   <div class="form-wrapper-div px-3 py-5">
     <h4 class="mb-4">Sign Up</h4>
-    <form>
+    <form action="/signup" method="POST">
       <div class="mb-4">
         <input type="text" class="form-control" id="usernameId" name="username" placeholder="Username" autocomplete="off">
       </div>
