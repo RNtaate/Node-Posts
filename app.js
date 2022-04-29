@@ -5,6 +5,8 @@ const path = require('path');
 const methodoverride = require('method-override');
 const mongoose = require('mongoose');
 const expressLayout = require("express-layout");
+const flash = require('express-flash');
+const session = require('express-session');
 
 const dbConfig = require('./config/database-config');
 const postRoutes = require('./routes/postRoutes');
@@ -26,6 +28,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(morgan('dev'));
 app.use(methodoverride('_method'));
 app.use(expressLayout());
+app.use(flash());
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}))
 
 app.use("/", authRoutes);
 app.use("/", postRoutes);
