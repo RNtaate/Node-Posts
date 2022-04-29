@@ -12,6 +12,7 @@
 
 body {
   font-family: 'Libre Bodoni', serif;
+  background-color: #F8F9FA;
 }
 
 textarea {
@@ -19,6 +20,8 @@ textarea {
   outline: none;
   resize: none;
   border-bottom: 1px solid lightgray;
+  padding: 10px 0 0 10px;
+  background-color: #F8F9FA;
 }
 
 textarea:focus {
@@ -56,7 +59,7 @@ a {
 /*Authentication forms styling*/
 
 .auth-main {
-  background-color: #ECEEF1;
+  background-color: #F8F9FA;
   min-height: 100vh;
   max-height: 100vh;
   position: relative;
