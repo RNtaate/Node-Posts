@@ -7,11 +7,13 @@ const mongoose = require('mongoose');
 const expressLayout = require("express-layout");
 const flash = require('express-flash');
 const session = require('express-session');
+const passport = require('passport');
 
 const dbConfig = require('./config/database-config');
 const postRoutes = require('./routes/postRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const authRoutes = require('./routes/authRoutes');
+const User = require('./models/UserModel');
 
 const app = express();
 
@@ -34,6 +36,13 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }))
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(User.createStrategy());
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use("/", authRoutes);
 app.use("/", postRoutes);
