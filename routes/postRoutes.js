@@ -4,12 +4,27 @@ const mongoose = require("mongoose");
 const router = express.Router();
 const Post = require('../models/PostModel');
 const Comment = require("../models/CommentModel");
+const User = require('../models/UserModel');
 
 router.get('/', async (req, res) => {
   try{
     let posts = await Post.find().sort({createdAt: -1});
-    console.log(req.user);
-    res.render('home', {posts, user: req.user});
+
+    let userids = [];
+    for(let post of posts){
+      if (!(userids.includes(post.userId))){
+        userids.push(post.userId);
+      }
+    }
+
+    let postUsers = await User.find({ _id: { $in: userids } });
+    let usersWithPosts = {};
+
+    for(let everyUser of postUsers) {
+      usersWithPosts[`${everyUser._id}`] = everyUser;
+    }
+
+    res.render('home', {posts, user: req.user, usersWithPosts});
   }catch(e) {
     console.error("Something is wrong", e);
   }
@@ -21,7 +36,8 @@ router.get("/home", (req, res) => {
 
 router.post('/posts', async(req, res) => {
   try{
-    let newPost = new Post(req.body);
+    let postObj = {...req.body, userId: req.user._id}
+    let newPost = new Post(postObj);
     await newPost.save();
     res.redirect('/');
   }catch(e) {
@@ -78,6 +94,7 @@ router.get("/posts/:id", async (req, res) => {
 
 router.delete("/posts/:id", async (req, res) => {
   try {
+    await Comment.deleteMany({postId: req.params.id})
     await Post.findByIdAndDelete(req.params.id);
     res.redirect("/");
   }catch(e) {
