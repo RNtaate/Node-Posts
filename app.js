@@ -8,6 +8,7 @@ const expressLayout = require("express-layout");
 const flash = require('express-flash');
 const session = require('express-session');
 const passport = require('passport');
+const connectEnsureLoggedIn = require('connect-ensure-login');
 
 const dbConfig = require('./config/database-config');
 const postRoutes = require('./routes/postRoutes');
@@ -45,8 +46,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use("/", authRoutes);
-app.use("/", postRoutes);
-app.use("/", commentRoutes);
+app.use("/", connectEnsureLoggedIn.ensureLoggedIn("/login"), postRoutes);
+app.use("/", connectEnsureLoggedIn.ensureLoggedIn("/login"), commentRoutes);
 
 app.use((req, res) => {
   res.status(404).render("404");
