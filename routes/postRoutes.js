@@ -82,8 +82,21 @@ router.get("/posts/:id", async (req, res) => {
       }
     ])
     if(singlePost.length > 0) {
+      let userids = [];
+      singlePost[0].comments.forEach( comm => {
+        if(!(userids.includes(comm.userId))){
+          userids.push(comm.userId);
+        }
+      })
+
+      let commUsers = await User.find({ _id: {$in: userids} });
+      let commentsUsers = {};
+      commUsers.forEach( user => {
+        commentsUsers[`${user._id}`] = user;
+      })
+
       singlePost[0].comments = singlePost[0].comments.reverse();
-      res.render("showPost", {post: singlePost[0], user: req.user});
+      res.render("showPost", {post: singlePost[0], user: req.user, commentsUsers});
     }else {
       throw new Error();
     }
