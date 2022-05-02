@@ -4,12 +4,15 @@
   <textarea name="postbody" id="" cols="30" rows="1" placeholder="What is on your mind?" class="mb-2 w-100 pb-2"></textarea>
   <button type="submit" class="btn btn-primary w-100">Post</button>
   </form>
+  <div class="w-50 mb-2">
+    <h6>Timeline</h6>
+  </div>
   <% posts.forEach( post => { %>
   <a href="/posts/<%= post._id %>">
     <div class="card mb-3 w-50 border-0">
       <div class="card-body">
         <small class="text-secondary me-2 fst-normal"><%= usersWithPosts[`${post.userId}`].username %></small>
-        <small class="text-secondary fst-normal">
+        <small class="text-secondary fst-normal">posted
           <%= ((Math.abs(new Date(`${post.createdAt}`) - new Date(Date.now()))) / (1000 * 60 * 60)).toFixed(0) %> 
           hour(s) ago
         </small>   
