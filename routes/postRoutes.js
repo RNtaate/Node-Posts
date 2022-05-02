@@ -8,7 +8,8 @@ const Comment = require("../models/CommentModel");
 router.get('/', async (req, res) => {
   try{
     let posts = await Post.find().sort({createdAt: -1});
-    res.render('home', {posts});
+    console.log(req.user);
+    res.render('home', {posts, user: req.user});
   }catch(e) {
     console.error("Something is wrong", e);
   }
@@ -66,7 +67,7 @@ router.get("/posts/:id", async (req, res) => {
     ])
     if(singlePost.length > 0) {
       singlePost[0].comments = singlePost[0].comments.reverse();
-      res.render("showPost", {post: singlePost[0]});
+      res.render("showPost", {post: singlePost[0], user: req.user});
     }else {
       throw new Error();
     }
