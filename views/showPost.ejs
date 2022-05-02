@@ -1,5 +1,5 @@
 <main class="d-flex flex-column align-items-center">
-  <%- include("./partials/navbar.js") %>
+  <%- include("./partials/navbar.ejs") %>
   <p class="w-50"><%= post.postbody %></p>
   <form action="/comments" method="POST" class="w-50 mb-4">
     <input type="text" value="<%= post._id%>" name="postid" style="display: none"/>
