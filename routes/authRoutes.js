@@ -1,16 +1,17 @@
 const express = require("express");
 const flash = require('express-flash');
 const passport = require('passport');
+const connectEnsureLoggedIn = require('connect-ensure-login');
 
 const router = express.Router();
 
 const User = require("../models/UserModel");
 
-router.get("/login", (req, res) => {
+router.get("/login", connectEnsureLoggedIn.ensureLoggedOut("/"),(req, res) => {
   res.render("auth/login");
 })
 
-router.post("/login", passport.authenticate('local', {
+router.post("/login", connectEnsureLoggedIn.ensureLoggedOut("/"), passport.authenticate('local', {
   successFlash: true,
   successMessage: "You have logged in successfully!",
   successRedirect: "/",
@@ -19,11 +20,11 @@ router.post("/login", passport.authenticate('local', {
   failureRedirect: "/login"
 }))
 
-router.get("/signup", (req, res) => {
+router.get("/signup", connectEnsureLoggedIn.ensureLoggedOut("/"), (req, res) => {
   res.render("auth/signup");
 })
 
-router.post("/signup", async (req, res) => {
+router.post("/signup", connectEnsureLoggedIn.ensureLoggedOut("/"), async (req, res) => {
   try {
     let user = await User.findOne({email: req.body.email});
     if (user) {
@@ -43,7 +44,7 @@ router.post("/signup", async (req, res) => {
   }
 })
 
-router.delete("/logout", (req, res) => {
+router.delete("/logout", connectEnsureLoggedIn.ensureLoggedIn("/login"),(req, res) => {
   req.logOut();
   res.redirect("/login");
 })
