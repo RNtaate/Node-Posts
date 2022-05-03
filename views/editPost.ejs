@@ -1,5 +1,8 @@
-<main class="d-flex flex-column align-items-center pt-5">
-  <h3>Edit Post</h3>
+<main class="d-flex flex-column align-items-center">
+  <%- include("./partials/navbar.ejs") %>
+  <div class="edit-post-div w-50">
+    <h3 class="text-secondary">Edit Post</h3>
+  </div>
   <form action="/editPost/?id=<%=post._id%>" method="POST" class="w-50">
     <textarea name="postbody" id="" cols="30" rows="2" placeholder="What is on your mind?" class="w-100 pb-2 mb-2 edit-textarea"><%= post.postbody %></textarea>
     <div class="form-buttons-div d-flex">

@@ -49,7 +49,7 @@ router.get("/editPost/:id", async (req, res) => {
   try {
     let post = await Post.findById(req.params.id);
     console.log(post);
-    res.render('editPost', {post});
+    res.render('editPost', {post, user: req.user});
   }catch(e) {
     console.error(e)
   }
