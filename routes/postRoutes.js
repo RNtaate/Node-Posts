@@ -82,7 +82,7 @@ router.get("/posts/:id", async (req, res) => {
       }
     ])
     if(singlePost.length > 0) {
-      let userids = [];
+      let userids = [singlePost[0].userId];
       singlePost[0].comments.forEach( comm => {
         if(!(userids.includes(comm.userId))){
           userids.push(comm.userId);

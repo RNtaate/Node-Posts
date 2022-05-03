@@ -1,6 +1,10 @@
-<h3>Edit Post</h3>
-<form action="/editPost/?id=<%=post._id%>" method="POST">
-  <textarea name="postbody" id="" cols="30" rows="4" placeholder="What is on your mind?"><%= post.postbody %></textarea>
-  <button type="submit">Post</button>
-</form>
-<a href="/">Cancel</a>
+<main class="d-flex flex-column align-items-center pt-5">
+  <h3>Edit Post</h3>
+  <form action="/editPost/?id=<%=post._id%>" method="POST" class="w-50">
+    <textarea name="postbody" id="" cols="30" rows="2" placeholder="What is on your mind?" class="w-100 pb-2 mb-2 edit-textarea"><%= post.postbody %></textarea>
+    <div class="form-buttons-div d-flex">
+      <button type="submit" class="btn btn-primary w-100 me-1">Update</button>
+      <a href="/" class="btn btn-secondary w-100">Cancel</a>
+    </div>
+  </form>
+</main>
