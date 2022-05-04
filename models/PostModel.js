@@ -11,6 +11,9 @@ const postSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
     required: true
+  },
+  postimage: {
+    type: String,
   }
 }, {timestamps: true})
 
