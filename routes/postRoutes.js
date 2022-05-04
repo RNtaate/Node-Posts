@@ -32,7 +32,16 @@ router.get('/', async (req, res) => {
 })
 
 router.get("/home", (req, res) => {
-  res.redirect("/");
+  res.redirect("/", {user: req.user});
+})
+
+router.get("/userposts", async (req, res) => {
+  try{
+    let posts = await Post.find({userId: req.user._id}).sort({createdAt: -1})
+    res.render('userPosts', {posts, user: req.user});
+  }catch(e) {
+    console.error(e)
+  }
 })
 
 router.post('/posts', (req, res) => {
