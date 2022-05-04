@@ -9,7 +9,7 @@ router.post("/comments", async (req, res) => {
   try{
     let commentedOnPost = await Post.findById(req.body.postid);
     if(commentedOnPost) {
-      let newComment = new Comment({...req.body, postId: commentedOnPost._id});
+      let newComment = new Comment({...req.body, postId: commentedOnPost._id, userId: req.user._id});
       await newComment.save();
       res.redirect(`/posts/${commentedOnPost._id}`);
     }else {
