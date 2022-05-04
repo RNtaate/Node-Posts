@@ -48,10 +48,16 @@ router.post('/posts', async(req, res) => {
 router.get("/editPost/:id", async (req, res) => {
   try {
     let post = await Post.findById(req.params.id);
+    if(post.userId != req.user.id) {
+      throw new Error();
+    }
+    
     console.log(post);
     res.render('editPost', {post, user: req.user});
   }catch(e) {
-    console.error(e)
+    console.error("Something terrible happened here ", e);
+    req.flash("error", "You are NOT authorized to edit this post")
+    res.redirect("/");
   }
 })
 
@@ -107,11 +113,19 @@ router.get("/posts/:id", async (req, res) => {
 
 router.delete("/posts/:id", async (req, res) => {
   try {
+    let post = await Post.findById(req.params.id);
+    if(post.userId != req.user.id) {
+      throw new Error();
+    }
+
     await Comment.deleteMany({postId: req.params.id})
     await Post.findByIdAndDelete(req.params.id);
+    req.flash("success", "Post deleted successfully!")
     res.redirect("/");
   }catch(e) {
     console.error(e);
+    req.flash("error", "You CANNOT delete that post");
+    res.redirect('/');
   }
 })
 

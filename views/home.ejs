@@ -1,12 +1,41 @@
 <main class="d-flex flex-column align-items-center">
   <%- include("./partials/navbar.ejs") %>
+
+  <!-- displaying any flash error or success messages -->
+  <% if(messages.error) { %>
+    <div class="toast align-items-center text-white bg-danger border-0 position-absolute top-0 start-50 translate-middle-x mt-1" role="alert" id="toast-div" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          <strong>Error! </strong><%= messages.error %>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  <% } %>
+
+  <% if(messages.success) { %>
+    <div class="toast align-items-center text-white bg-success border-0 position-absolute top-0 start-50 translate-middle-x mt-1" role="alert" id="toast-div" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          <strong>Success! </strong><%= messages.success %>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  <% } %>
+
+  <!-- Form for creating new posts -->
   <form action="/posts" method="POST" class="w-50 mb-5">
   <textarea name="postbody" id="" cols="30" rows="1" placeholder="What is on your mind?" class="mb-2 w-100 pb-2"></textarea>
   <button type="submit" class="btn btn-primary w-100">Post</button>
   </form>
+
+  <!-- The timeline for posts -->
   <div class="w-50 mb-2">
     <h6>Timeline</h6>
   </div>
+
+  <!-- The loop for displaying the posts -->
   <% posts.forEach( post => { %>
   <a href="/posts/<%= post._id %>">
     <div class="card mb-3 w-50 border-0">
