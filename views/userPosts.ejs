@@ -24,38 +24,75 @@
     </div>
   <% } %>
 
-  <a href="/" class="btn btn-secondary w-50 mb-3"><i class="fa-solid fa-plus me-2"></i>Add Post</a>
 
-  <!-- The timeline for posts -->
-  <div class="w-50 mb-2">
-    <h6>Your Posts</h6>
-  </div>
+  <section class="user-posts-section d-flex w-100">
+    <aside class="user-profile-aside p-3">
+      <div class="profile-img-div m-auto"></div>
+      <h4 class="mt-4"><%= user.username %></h4>
 
-  <!-- The loop for displaying the posts -->
-  <% posts.forEach( post => { %>
-  <a href="/posts/<%= post._id %>">
-    <div class="card mb-3 w-50 border-0">
-      <div class="card-body">
-        <small class="text-secondary me-2 fst-normal"><%= user.username %></small>
-        <small class="text-secondary fst-normal">posted
-          <%= ((Math.abs(new Date(`${post.createdAt}`) - new Date(Date.now()))) / (1000 * 60 * 60)).toFixed(0) %> 
-          hour(s) ago
-        </small>   
-        <p class="card-text"><%= post.postbody %></p>
+      <a class="btn btn-secondary btn-sm w-100 mb-3" href="#">Edit Profile</a>
+
+      <div class="following-div d-flex mb-1">
+        <div class="aside-icon-div text-secondary"><i class="fa-solid fa-user-group"></i></div>
+        <span>
+          <small class="me-3 text-secondary"><b class="text-dark">16</b> Followers</small>
+          <small class="text-secondary"><b class="text-dark">30</b> Following</small>
+        </span>
       </div>
-      <% if(post.postimage) { %>
-        <img src="uploads/<%= post.postimage %>" class="card-img-top" alt="...">
-      <% } %>
-      <div class="d-flex justify-content-between">
-        <a href="/editPost/<%= post._id %>" class="post-icon-a w-100">
-          <button type="button" class="icon-button w-100 py-2"><i class="fa-solid fa-pen"></i></button></a>
-        <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" style="display: inline" class="w-100">
-          <button type="submit" class="icon-button text-danger w-100 py-2"><i class="fa-solid fa-trash"></i></button>
-        </form>
-        <a href="/posts/<%=post._id%>" class="post-icon-a w-100">
-          <button type="button" class="icon-button w-100 py-2"><i class="fa-solid fa-comment"></i></button></a>
+
+      <div class="general-info-div d-flex mb-1">
+        <div class="aside-icon-div text-secondary"><i class="fa-solid fa-location-dot"></i></div>
+        <span><small>New York, US</small></span>
       </div>
+
+      <div class="general-info-div d-flex mb-1">
+        <div class="aside-icon-div text-secondary"><i class="fa-solid fa-envelope"></i></div>
+        <span><small><%= user.email %></small></span>
+      </div>
+
+      <div class="general-info-div d-flex mb-1">
+        <div class="aside-icon-div text-secondary"><i class="fa-brands fa-twitter"></i></div>
+        <span><small><%= user.twitter ? user.twitter : "Not Available" %></small></span>
+      </div>
+    </aside>
+
+    <div class="posts-section-div d-flex align-items-center flex-column overflow-auto pt-3">
+
+      <a href="/" class="btn btn-secondary w-75 mb-3"><i class="fa-solid fa-plus me-2"></i>Add Post</a>
+    
+      <!-- The timeline for posts -->
+      <div class="w-75 mb-2">
+        <h6>Your Posts</h6>
+      </div>
+    
+      <!-- The loop for displaying the posts -->
+      <% posts.forEach( post => { %>
+      <a href="/posts/<%= post._id %>">
+        <div class="card mb-3 w-75 border-0">
+          <div class="card-body">
+            <small class="text-secondary me-2 fst-normal"><%= user.username %></small>
+            <small class="text-secondary fst-normal">posted
+              <%= ((Math.abs(new Date(`${post.createdAt}`) - new Date(Date.now()))) / (1000 * 60 * 60)).toFixed(0) %> 
+              hour(s) ago
+            </small>   
+            <p class="card-text"><%= post.postbody %></p>
+          </div>
+          <% if(post.postimage) { %>
+            <img src="uploads/<%= post.postimage %>" class="card-img-top" alt="...">
+          <% } %>
+          <div class="d-flex justify-content-between">
+            <a href="/editPost/<%= post._id %>" class="post-icon-a w-100">
+              <button type="button" class="icon-button w-100 py-2"><i class="fa-solid fa-pen"></i></button></a>
+            <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" style="display: inline" class="w-100">
+              <button type="submit" class="icon-button text-danger w-100 py-2"><i class="fa-solid fa-trash"></i></button>
+            </form>
+            <a href="/posts/<%=post._id%>" class="post-icon-a w-100">
+              <button type="button" class="icon-button w-100 py-2"><i class="fa-solid fa-comment"></i></button></a>
+          </div>
+        </div>
+      </a>
+      <% }) %>
     </div>
-  </a>
-  <% }) %>
+  </section>
+
 </main>

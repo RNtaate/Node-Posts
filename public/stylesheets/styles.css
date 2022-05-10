@@ -103,3 +103,40 @@ a {
   top: 1em;
   right: 1em;
 }
+
+.user-posts-section {
+  max-height: 85vh;
+  min-height: 85vh;
+  overflow: hidden;
+}
+
+.user-profile-aside {
+  min-width: 30%;
+  max-width: 30%;
+}
+
+.profile-img-div {
+  border: 1px solid silver;
+  width: 30vh;
+  height: 30vh;
+  border-radius: 50%;
+  background-image: url('/uploads/1651762123133_puppy2.jpg.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.following-div,
+.general-info-div {
+  font-size: .9em;
+}
+
+.aside-icon-div {
+  min-width: 2em;
+  max-width: 2em;
+}
+
+.posts-section-div {
+  border-left: 1px solid #eee;
+  flex: 1;
+}
