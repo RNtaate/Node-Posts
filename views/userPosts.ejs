@@ -1,6 +1,6 @@
 <main class="d-flex flex-column align-items-center">
   <%- include("./partials/navbar.ejs") %>
-
+  <%- include("./partials/profile_picture_modal.ejs") %>
   <!-- displaying any flash error or success messages -->
   <% if(messages.error) { %>
     <div class="toast align-items-center text-white bg-danger border-0 position-absolute top-0 start-50 translate-middle-x mt-1" role="alert" id="toast-div" aria-live="assertive" aria-atomic="true">
@@ -27,7 +27,11 @@
 
   <section class="user-posts-section d-flex w-100">
     <aside class="user-profile-aside p-3">
-      <div class="profile-img-div m-auto"></div>
+      <div class="profile-img-div m-auto position-relative">
+        <span class="profile-img-edit-span position-absolute bottom-0 end-0 d-flex justify-content-center align-items-center btn btn-secondary">
+          <i class="fa-solid fa-pen"></i>
+        </span>
+      </div>
       <h4 class="mt-4"><%= user.username %></h4>
 
       <a class="btn btn-secondary btn-sm w-100 mb-3" href="/updateUserProfile/<%= user._id %>">Edit Profile</a>
@@ -102,3 +106,4 @@
   </section>
 
 </main>
+<script src="/javascript/formModal.js"></script>
