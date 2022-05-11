@@ -120,10 +120,6 @@ a {
   width: 30vh;
   height: 30vh;
   border-radius: 50%;
-  background-image: url('/images/user_profile_placeholder.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .profile-img-edit-span {
