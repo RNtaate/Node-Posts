@@ -25,9 +25,13 @@
   <% } %>
 
   <!-- Form for creating new posts -->
-  <form action="/posts" method="POST" class="w-50 mb-5">
+  <form action="/posts" method="POST" class="w-50 mb-5" enctype="multipart/form-data">
   <textarea name="postbody" id="" cols="30" rows="1" placeholder="What is on your mind?" class="mb-2 w-100 pb-2"></textarea>
-  <button type="submit" class="btn btn-primary w-100">Post</button>
+  <div class="mb-3">
+    <label for="formFileSm" class="form-label text-secondary">Add an image</label>
+    <input class="" name="postimage" id="formFileSm" type="file">
+  </div>
+  <button type="submit" class="btn btn-secondary w-100">Post</button>
   </form>
 
   <!-- The timeline for posts -->
@@ -47,6 +51,9 @@
         </small>   
         <p class="card-text"><%= post.postbody %></p>
       </div>
+      <% if(post.postimage) { %>
+        <img src="uploads/<%= post.postimage %>" class="card-img-top" alt="...">
+      <% } %>
       <div class="d-flex justify-content-between">
         <a href="/editPost/<%= post._id %>" class="post-icon-a w-100">
           <button type="button" class="icon-button w-100 py-2"><i class="fa-solid fa-pen"></i></button></a>

@@ -5,6 +5,7 @@ const router = express.Router();
 const Post = require('../models/PostModel');
 const Comment = require("../models/CommentModel");
 const User = require('../models/UserModel');
+const multerUpload = require('../config/multer-config');
 
 router.get('/', async (req, res) => {
   try{
@@ -34,15 +35,34 @@ router.get("/home", (req, res) => {
   res.redirect("/");
 })
 
-router.post('/posts', async(req, res) => {
+router.get("/userposts", async (req, res) => {
   try{
-    let postObj = {...req.body, userId: req.user._id}
-    let newPost = new Post(postObj);
-    await newPost.save();
-    res.redirect('/');
+    let posts = await Post.find({userId: req.user._id}).sort({createdAt: -1})
+    res.render('userPosts', {posts, user: req.user});
   }catch(e) {
-    console.error(e);
+    console.error(e)
   }
+})
+
+router.post('/posts', (req, res) => {
+  multerUpload(req, res,  async (err) => {
+    if(err){
+      console.log(err)
+      req.flash('error', err);
+      res.redirect('/');
+    }else{
+      try{
+        postObj = {...req.body, userId: req.user._id, postimage: req.file ? req.file.filename : ""}
+        console.log(postObj);
+        let newPost = new Post(postObj);
+        await newPost.save();
+        res.redirect('/');
+      }catch(e) {
+        console.error(e);
+      }
+    }
+  })
+
 })
 
 router.get("/editPost/:id", async (req, res) => {

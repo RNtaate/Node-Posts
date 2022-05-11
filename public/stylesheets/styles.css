@@ -15,6 +15,15 @@ body {
   background-color: #F8F9FA;
 }
 
+nav.navbar,
+.toast {
+  z-index: 1;
+}
+
+nav.navbar {
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+}
+
 textarea {
   border: none;
   outline: none;
@@ -93,4 +102,64 @@ a {
   position: absolute;
   top: 1em;
   right: 1em;
+}
+
+.user-posts-section {
+  max-height: 85vh;
+  min-height: 85vh;
+  overflow: hidden;
+}
+
+.user-profile-aside {
+  min-width: 30%;
+  max-width: 30%;
+}
+
+.profile-img-div {
+  border: 1px solid silver;
+  width: 30vh;
+  height: 30vh;
+  border-radius: 50%;
+}
+
+.profile-img-edit-span {
+  border-radius: 50%;
+  padding: 10px;
+  border: 2px solid lightgray;
+}
+
+.following-div,
+.general-info-div {
+  font-size: .9em;
+}
+
+.aside-icon-div {
+  min-width: 2em;
+  max-width: 2em;
+}
+
+.posts-section-div {
+  border-left: 1px solid #eee;
+  flex: 1;
+}
+
+.update-user-form-wrapper {
+  max-height: 85vh;
+  overflow: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) inset;
+}
+
+.profile-picture-form-section {
+  z-index: 4;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+span.position-absolute.bottom-100 {
+  cursor: pointer;
+  color: white;
+  transition: all 0.1s ease-in-out;
+}
+
+span.position-absolute.bottom-100:hover {
+  color: #d9534f;
 }

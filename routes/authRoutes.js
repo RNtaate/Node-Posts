@@ -6,6 +6,7 @@ const connectEnsureLoggedIn = require('connect-ensure-login');
 const router = express.Router();
 
 const User = require("../models/UserModel");
+const multerUpload = require("../config/multer-config");
 
 router.get("/login", connectEnsureLoggedIn.ensureLoggedOut("/"),(req, res) => {
   res.render("auth/login");
@@ -42,6 +43,46 @@ router.post("/signup", connectEnsureLoggedIn.ensureLoggedOut("/"), async (req, r
   }catch(e) {
     console.error(e);
   }
+})
+
+router.get("/updateUserProfile/:id", connectEnsureLoggedIn.ensureLoggedIn("/login"), async(req, res) => {
+  try{
+    let user = await User.findById(req.params.id);
+    res.render("auth/updateProfile", {user});
+  }catch(e) {
+    console.error(e)
+  }
+})
+
+router.post("/updateUserProfile", connectEnsureLoggedIn.ensureLoggedIn('/login'), async (req, res) => {
+  try {
+    await User.findByIdAndUpdate(req.query.id, req.body);
+    res.redirect("/userposts")
+  } catch(e){
+    console.err(e)
+  }
+})
+
+router.post("/userprofilepicture", connectEnsureLoggedIn.ensureLoggedIn("/login"), (req, res) => {
+  multerUpload(req, res, async(err) => {
+    if(err) {
+      console.error(err);
+      req.flash("error", "Failed to upload profile picture");
+      res.redirect("/userposts");
+    } else {
+      try{
+        if(req.file) {
+          await User.findByIdAndUpdate(req.user._id, {userimage: req.file.filename});
+          req.flash("success", "Profile picture successfully updated!")
+        }
+        res.redirect("/userposts")
+      } catch(e) {
+        console.error(e)
+        req.flash("error", "Something went wrong, Please try again");
+        res.redirect("/userposts");
+      }
+    }
+  })
 })
 
 router.delete("/logout", connectEnsureLoggedIn.ensureLoggedIn("/login"),(req, res) => {

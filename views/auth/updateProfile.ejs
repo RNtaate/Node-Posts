@@ -1,0 +1,36 @@
+<main class="auth-main d-flex flex-column align-items-center  position-relative">
+
+  <%- include("../partials/navbar.ejs") %>
+
+  <% if(messages.error) { %>
+    <div class="toast align-items-center text-white bg-danger border-0 position-absolute top-0 start-50 translate-middle-x mt-1" role="alert" id="toast-div" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          <strong>Error! </strong><%= messages.error %>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  <% } %>
+
+  <div class="form-wrapper-div px-3 py-5 update-user-form-wrapper">
+    <h4 class="mb-4">Update Your  Profile</h4>
+    <form action="/updateUserProfile?id=<%= user._id %>" method="POST">
+      <div class="mb-4">
+        <input type="text" class="form-control" id="usernameId" name="username" placeholder="Username" autocomplete="off" value="<%= user.username%>">
+      </div>
+      <div class="mb-4">
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" placeholder="Email Address" autocomplete="off" value="<%= user.email%>">
+        <div id="emailHelp" class="form-text email-lower-div text-info">If you update the email or password, you will be required to login again.</div>
+      </div>
+      <div class="mb-4">
+        <input type="text" class="form-control" id="usernameId" name="location" placeholder="City or Country" autocomplete="off" value="<%= user.location ? user.location : '' %>">
+      </div>
+      <div class="mb-4">
+        <input type="text" class="form-control" id="usernameId" name="twitter" placeholder="twitter account" autocomplete="off" value="<%= user.twitter? user.twitter : ''%>">
+      </div>
+      <button type="submit" class="btn w-100 auth-form-button mb-2">Update Account</button>
+      <a class="btn btn-danger w-100" href="/userposts">Cancel</a>
+    </form>
+  </div>
+</main>
