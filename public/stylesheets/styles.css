@@ -126,6 +126,12 @@ a {
   background-size: cover;
 }
 
+.profile-img-edit-span {
+  border-radius: 50%;
+  padding: 10px;
+  border: 2px solid lightgray;
+}
+
 .following-div,
 .general-info-div {
   font-size: .9em;
@@ -145,4 +151,19 @@ a {
   max-height: 85vh;
   overflow: auto;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) inset;
+}
+
+.profile-picture-form-section {
+  z-index: 4;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+span.position-absolute.bottom-100 {
+  cursor: pointer;
+  color: white;
+  transition: all 0.1s ease-in-out;
+}
+
+span.position-absolute.bottom-100:hover {
+  color: #d9534f;
 }
