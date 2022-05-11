@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
 })
 
 router.get("/home", (req, res) => {
-  res.redirect("/", {user: req.user});
+  res.redirect("/");
 })
 
 router.get("/userposts", async (req, res) => {

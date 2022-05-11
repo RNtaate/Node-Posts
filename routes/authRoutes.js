@@ -44,6 +44,25 @@ router.post("/signup", connectEnsureLoggedIn.ensureLoggedOut("/"), async (req, r
   }
 })
 
+router.get("/updateUserProfile/:id", connectEnsureLoggedIn.ensureLoggedIn("/login"), async(req, res) => {
+  try{
+    let user = await User.findById(req.params.id);
+    res.render("auth/updateProfile", {user});
+  }catch(e) {
+    console.error(e)
+  }
+})
+
+router.post("/updateUserProfile", connectEnsureLoggedIn.ensureLoggedIn('/login'), async (req, res) => {
+  try {
+    await User.findByIdAndUpdate(req.query.id, req.body);
+    res.redirect("/userposts")
+  } catch(e){
+    console.err(e)
+  }
+})
+
+
 router.delete("/logout", connectEnsureLoggedIn.ensureLoggedIn("/login"),(req, res) => {
   req.logOut();
   res.redirect("/login");
