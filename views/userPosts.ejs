@@ -30,7 +30,7 @@
       <div class="profile-img-div m-auto"></div>
       <h4 class="mt-4"><%= user.username %></h4>
 
-      <a class="btn btn-secondary btn-sm w-100 mb-3" href="#">Edit Profile</a>
+      <a class="btn btn-secondary btn-sm w-100 mb-3" href="/updateUserProfile/<%= user._id %>">Edit Profile</a>
 
       <div class="following-div d-flex mb-1">
         <div class="aside-icon-div text-secondary"><i class="fa-solid fa-user-group"></i></div>
@@ -42,7 +42,7 @@
 
       <div class="general-info-div d-flex mb-1">
         <div class="aside-icon-div text-secondary"><i class="fa-solid fa-location-dot"></i></div>
-        <span><small>New York, US</small></span>
+        <span><small><%= user.location ? user.location : 'New York, US' %></small></span>
       </div>
 
       <div class="general-info-div d-flex mb-1">
@@ -52,7 +52,13 @@
 
       <div class="general-info-div d-flex mb-1">
         <div class="aside-icon-div text-secondary"><i class="fa-brands fa-twitter"></i></div>
-        <span><small><%= user.twitter ? user.twitter : "Not Available" %></small></span>
+        <span>
+          <% if(user.twitter) { %>
+            <small><%= user.twitter %></small>
+          <% } else { %>
+            <small class="text-danger">Not Available</small>
+          <% } %>
+        </span>
       </div>
     </aside>
 
