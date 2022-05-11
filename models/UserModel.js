@@ -16,7 +16,20 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
+  },
+  twitter: {
+    type: String,
+    default: ""
+  },
+  location: {
+    type: String,
+    default: ""
+  },
+  userimage: {
+    type: String,
+    default: ""
   }
+
 }, {timestamps: true});
 
 //plug in passport-local-mongoose into the schema
