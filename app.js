@@ -18,8 +18,11 @@ const User = require('./models/UserModel');
 
 const app = express();
 
-mongoose.connect(process.env.MONGODB_URL)
-.then(() => console.log('You have successfully connected to mongoDB'))
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => {
+  console.log('You have successfully connected to mongoDB')
+  app.listen(process.env.PORT);
+})
 .catch( err => console.error("CONNECTION FAILED: ", err));
 
 app.set("view engine", 'ejs');
@@ -52,5 +55,3 @@ app.use("/", connectEnsureLoggedIn.ensureLoggedIn("/login"), commentRoutes);
 app.use((req, res) => {
   res.status(404).render("404");
 })
-
-app.listen(process.env.PORT);
