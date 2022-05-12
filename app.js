@@ -18,7 +18,7 @@ const User = require('./models/UserModel');
 
 const app = express();
 
-mongoose.connect(dbConfig.database)
+mongoose.connect(process.env.MONGODB_URL || dbConfig.database)
 .then(() => console.log('You have successfully connected to mongoDB'))
 .catch( err => console.error("CONNECTION FAILED: ", err));
 
