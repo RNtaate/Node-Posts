@@ -15,21 +15,16 @@ const postRoutes = require('./routes/postRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const authRoutes = require('./routes/authRoutes');
 const User = require('./models/UserModel');
-const { connect } = require('http2');
 
 const app = express();
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-
-    console.log("You have successfully connected to the mongoDB");
-  }catch(err) {
-    console.error("ONNECTION TO MONGODB FAILED: ", err);
-  }
-}
-
-connectDB();
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => {
+  console.log('You have successfully connected to the mongoDB');
+})
+.catch((err) => {
+  console.log('CONNECTION TO MONGODB FAILED:', err);
+})
 
 app.set("view engine", 'ejs');
 app.set('views', path.join(__dirname, '/views'));
