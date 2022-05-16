@@ -120,12 +120,25 @@ a {
   width: 30vh;
   height: 30vh;
   border-radius: 50%;
+  background: url('/images/user_profile_placeholder.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .profile-img-edit-span {
   border-radius: 50%;
   padding: 10px;
   border: 2px solid lightgray;
+}
+
+.profile-img-div > img {
+  width: inherit;
+  height: inherit; 
+  object-fit: cover;
+  object-position: center;
+  border: inherit;
+  border-radius: inherit;
 }
 
 .following-div,

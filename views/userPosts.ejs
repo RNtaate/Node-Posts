@@ -27,10 +27,13 @@
 
   <section class="user-posts-section d-flex w-100">
     <aside class="user-profile-aside p-3">
-      <div class="profile-img-div m-auto position-relative" style="background: url('/uploads/<%= user.userimage %>'), url('/images/user_profile_placeholder.png') no-repeat; background-position: center; background-size: cover;">
+      <div class="profile-img-div m-auto position-relative d-flex justify-content-center align-items-center">
         <span class="profile-img-edit-span position-absolute bottom-0 end-0 d-flex justify-content-center align-items-center btn btn-secondary">
           <i class="fa-solid fa-pen"></i>
         </span>
+        <% if (user.userimage) { %>
+          <img src="data:<%= user.userimagetype %>;charset=utf-8;base64,<%= user.userimage.toString('base64') %>"/>
+        <% } %>
       </div>
       <h4 class="mt-4"><%= user.username %></h4>
 
