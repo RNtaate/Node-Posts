@@ -52,7 +52,7 @@ router.post('/posts', async (req, res) => {
 
   try{
     if(req.files){
-      if(!(fileTypes.test(req.files.postimage.postimagetype.toLocaleLowerCase()))){
+      if(!(fileTypes.test(req.files.postimage.mimetype.toLowerCase()))){
         throw new Error()
       }
       let postimage = new Buffer.from(req.files.postimage.data, 'base64');
