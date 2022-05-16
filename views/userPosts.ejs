@@ -31,7 +31,7 @@
         <span class="profile-img-edit-span position-absolute bottom-0 end-0 d-flex justify-content-center align-items-center btn btn-secondary">
           <i class="fa-solid fa-pen"></i>
         </span>
-        <% if (user.userimage) { %>
+        <% if (user.userimagetype !== "") { %>
           <img src="data:<%= user.userimagetype %>;charset=utf-8;base64,<%= user.userimage.toString('base64') %>"/>
         <% } %>
       </div>
