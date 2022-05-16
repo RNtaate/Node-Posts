@@ -7,6 +7,8 @@ const router = express.Router();
 
 const User = require("../models/UserModel");
 
+const fileTypes = /jpeg|jpg|gif|png/;
+
 router.get("/login", connectEnsureLoggedIn.ensureLoggedOut("/"),(req, res) => {
   res.render("auth/login");
 })
@@ -59,6 +61,24 @@ router.post("/updateUserProfile", connectEnsureLoggedIn.ensureLoggedIn('/login')
     res.redirect("/userposts")
   } catch(e){
     console.err(e)
+  }
+})
+
+router.post("/userprofilepicture", connectEnsureLoggedIn.ensureLoggedIn("/"), async (req, res) => {
+  try{
+    if(req.files == null || !(fileTypes.test(req.files.userimage.mimetype.toLowerCase()))) throw new Error();
+
+    let finalObj = {};
+    finalObj.userimage = new Buffer.from(req.files.userimage.data, 'base64');
+    finalObj.userimagetype = req.files.userimage.mimetype;
+
+    await User.findByIdAndUpdate(req.user._id, finalObj);
+
+    res.redirect("/userposts")
+  }catch(e) {
+    console.error(e);
+    req.flash("error", "Something went wrong please try again")
+    res.redirect("/userposts")
   }
 })
 
