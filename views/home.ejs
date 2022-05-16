@@ -52,7 +52,7 @@
         <p class="card-text"><%= post.postbody %></p>
       </div>
       <% if(post.postimage) { %>
-        <img src="uploads/<%= post.postimage %>" class="card-img-top" alt="...">
+        <img src="data:<%= post.postimagetype %>;charset=utf-8;base64,<%= post.postimage.toString('base64') %>" class="card-img-top" alt="...">
       <% } %>
       <div class="d-flex justify-content-between">
         <a href="/editPost/<%= post._id %>" class="post-icon-a w-100">
