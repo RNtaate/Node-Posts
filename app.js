@@ -9,6 +9,7 @@ const flash = require('express-flash');
 const session = require('express-session');
 const passport = require('passport');
 const connectEnsureLoggedIn = require('connect-ensure-login');
+const fileupload = require("express-fileupload");
 
 const dbConfig = require('./config/database-config');
 const postRoutes = require('./routes/postRoutes');
@@ -43,6 +44,7 @@ app.use(session({
 }))
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(fileupload());
 
 passport.use(User.createStrategy());
 
