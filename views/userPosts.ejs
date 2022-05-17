@@ -27,10 +27,13 @@
 
   <section class="user-posts-section d-flex w-100">
     <aside class="user-profile-aside p-3">
-      <div class="profile-img-div m-auto position-relative" style="background: url('/uploads/<%= user.userimage %>'), url('/images/user_profile_placeholder.png') no-repeat; background-position: center; background-size: cover;">
+      <div class="profile-img-div m-auto position-relative d-flex justify-content-center align-items-center">
         <span class="profile-img-edit-span position-absolute bottom-0 end-0 d-flex justify-content-center align-items-center btn btn-secondary">
           <i class="fa-solid fa-pen"></i>
         </span>
+        <% if (user.userimagetype !== "") { %>
+          <img src="data:<%= user.userimagetype %>;charset=utf-8;base64,<%= user.userimage.toString('base64') %>"/>
+        <% } %>
       </div>
       <h4 class="mt-4"><%= user.username %></h4>
 
@@ -72,7 +75,7 @@
     
       <!-- The timeline for posts -->
       <div class="w-75 mb-2">
-        <h6>Your Posts</h6>
+        <h6 class="your-posts-div">Your Posts</h6>
       </div>
     
       <!-- The loop for displaying the posts -->
@@ -88,7 +91,7 @@
             <p class="card-text"><%= post.postbody %></p>
           </div>
           <% if(post.postimage) { %>
-            <img src="uploads/<%= post.postimage %>" class="card-img-top" alt="...">
+            <img src="data:<%= post.postimagetype %>;charset=utf-8;base64,<%= post.postimage.toString('base64') %>" class="card-img-top" alt="...">
           <% } %>
           <div class="d-flex justify-content-between">
             <a href="/editPost/<%= post._id %>" class="post-icon-a w-100">

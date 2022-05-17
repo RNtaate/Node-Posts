@@ -6,7 +6,8 @@ const connectEnsureLoggedIn = require('connect-ensure-login');
 const router = express.Router();
 
 const User = require("../models/UserModel");
-const multerUpload = require("../config/multer-config");
+
+const fileTypes = /jpeg|jpg|gif|png/;
 
 router.get("/login", connectEnsureLoggedIn.ensureLoggedOut("/"),(req, res) => {
   res.render("auth/login");
@@ -63,26 +64,22 @@ router.post("/updateUserProfile", connectEnsureLoggedIn.ensureLoggedIn('/login')
   }
 })
 
-router.post("/userprofilepicture", connectEnsureLoggedIn.ensureLoggedIn("/login"), (req, res) => {
-  multerUpload(req, res, async(err) => {
-    if(err) {
-      console.error(err);
-      req.flash("error", "Failed to upload profile picture");
-      res.redirect("/userposts");
-    } else {
-      try{
-        if(req.file) {
-          await User.findByIdAndUpdate(req.user._id, {userimage: req.file.filename});
-          req.flash("success", "Profile picture successfully updated!")
-        }
-        res.redirect("/userposts")
-      } catch(e) {
-        console.error(e)
-        req.flash("error", "Something went wrong, Please try again");
-        res.redirect("/userposts");
-      }
-    }
-  })
+router.post("/userprofilepicture", connectEnsureLoggedIn.ensureLoggedIn("/"), async (req, res) => {
+  try{
+    if(req.files == null || !(fileTypes.test(req.files.userimage.mimetype.toLowerCase()))) throw new Error();
+
+    let finalObj = {};
+    finalObj.userimage = new Buffer.from(req.files.userimage.data, 'base64');
+    finalObj.userimagetype = req.files.userimage.mimetype;
+
+    await User.findByIdAndUpdate(req.user._id, finalObj);
+
+    res.redirect("/userposts")
+  }catch(e) {
+    console.error(e);
+    req.flash("error", "Something went wrong please try again")
+    res.redirect("/userposts")
+  }
 })
 
 router.delete("/logout", connectEnsureLoggedIn.ensureLoggedIn("/login"),(req, res) => {

@@ -9,6 +9,7 @@ const flash = require('express-flash');
 const session = require('express-session');
 const passport = require('passport');
 const connectEnsureLoggedIn = require('connect-ensure-login');
+const fileupload = require("express-fileupload");
 
 const dbConfig = require('./config/database-config');
 const postRoutes = require('./routes/postRoutes');
@@ -18,9 +19,13 @@ const User = require('./models/UserModel');
 
 const app = express();
 
-mongoose.connect(dbConfig.database)
-.then(() => console.log('You have successfully connected to mongoDB'))
-.catch( err => console.error("CONNECTION FAILED: ", err));
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => {
+  console.log('You have successfully connected to the mongoDB');
+})
+.catch((err) => {
+  console.log('CONNECTION TO MONGODB FAILED:', err);
+})
 
 app.set("view engine", 'ejs');
 app.set('views', path.join(__dirname, '/views'));
@@ -39,6 +44,7 @@ app.use(session({
 }))
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(fileupload());
 
 passport.use(User.createStrategy());
 
@@ -53,4 +59,6 @@ app.use((req, res) => {
   res.status(404).render("404");
 })
 
-app.listen(process.env.PORT);
+app.listen(process.env.PORT, () => {
+  console.log("Now listening on port 3000");
+});

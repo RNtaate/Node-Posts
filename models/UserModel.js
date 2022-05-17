@@ -26,6 +26,10 @@ const userSchema = new Schema({
     default: ""
   },
   userimage: {
+    type: Buffer,
+    default: null
+  },
+  userimagetype: {
     type: String,
     default: ""
   }

@@ -5,7 +5,8 @@ const router = express.Router();
 const Post = require('../models/PostModel');
 const Comment = require("../models/CommentModel");
 const User = require('../models/UserModel');
-const multerUpload = require('../config/multer-config');
+
+const fileTypes = /jpeg|jpg|gif|png/;
 
 router.get('/', async (req, res) => {
   try{
@@ -44,25 +45,27 @@ router.get("/userposts", async (req, res) => {
   }
 })
 
-router.post('/posts', (req, res) => {
-  multerUpload(req, res,  async (err) => {
-    if(err){
-      console.log(err)
-      req.flash('error', err);
-      res.redirect('/');
-    }else{
-      try{
-        postObj = {...req.body, userId: req.user._id, postimage: req.file ? req.file.filename : ""}
-        console.log(postObj);
-        let newPost = new Post(postObj);
-        await newPost.save();
-        res.redirect('/');
-      }catch(e) {
-        console.error(e);
-      }
-    }
-  })
+router.post('/posts', async (req, res) => {
+  let finalPostObj = { ... req.body, userId: req.user._id};
 
+  try{
+    if(req.files){
+      if(!(fileTypes.test(req.files.postimage.mimetype.toLowerCase()))){
+        throw new Error()
+      }
+      let postimage = new Buffer.from(req.files.postimage.data, 'base64');
+      let postimagetype = req.files.postimage.mimetype;
+      finalPostObj = {...finalPostObj, postimage, postimagetype}
+    }
+    let newPost = new Post(finalPostObj);
+    await newPost.save();
+    req.flash("success", "Post uploaded successfully!");
+    res.redirect('/');
+  }catch(e) {
+    console.error(e)
+    req.flash("error", "Failed to upload your post");
+    res.redirect("/")
+  }
 })
 
 router.get("/editPost/:id", async (req, res) => {

@@ -13,7 +13,10 @@ const postSchema = new Schema({
     required: true
   },
   postimage: {
-    type: String,
+    type: Buffer,
+  },
+  postimagetype: {
+    type: String
   }
 }, {timestamps: true})
 
