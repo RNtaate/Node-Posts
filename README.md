@@ -13,9 +13,16 @@
 > - A **Follower** and **Following** feature or **Friendship** feature.
 
 ### Screenshots
-- *__Coming Soon__*
 
-##  🔧 Built with
+|Timeline Page|My Posts Page
+|-|-|
+![](/public/screenshots/Screenshot3.png)|![](/public/screenshots/Screenshot4.png)
+
+|Login Page|Signup Page
+|-|-|
+|![](/public/screenshots/Screenshot1.png)|![](/public/screenshots/Screenshot2.png)
+
+## 🔧 Built with
 
 - Node JS
 - Express
